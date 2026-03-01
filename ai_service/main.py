@@ -6,11 +6,7 @@ import uvicorn
 import time
 from collections import defaultdict
 from dotenv import load_dotenv
-<<<<<<< HEAD
 import base64
-=======
-
->>>>>>> d72a015a87c0bc25652fa3d25c6512aed96d0cbf
 # Load environment variables at startup
 load_dotenv()
 
@@ -87,22 +83,15 @@ async def generate_artwork(req: GenerateRequest, request: Request):
     # 4. Image Generation
     try:
         image_base64 = generate_one_image(prompt, neg_prompt, seed=req.user_avatar_seed or 0)
-<<<<<<< HEAD
         image_data = base64.b64decode(image_base64)
 
-=======
-        
->>>>>>> d72a015a87c0bc25652fa3d25c6512aed96d0cbf
         # Calculate Latency
         latency_ms = int((time.perf_counter() - start_time) * 1000)
         
         # Structured Logging
         print(f"[REQUEST] IP: {request.client.host} | Mood: {mood} | Intensity: {intensity} | Seed: {req.user_avatar_seed} | Latency: {latency_ms}ms")
-<<<<<<< HEAD
         with open(f"frontend/public/{input_text}.jpg", "wb") as image_file:
             image_file.write(image_data)
-=======
->>>>>>> d72a015a87c0bc25652fa3d25c6512aed96d0cbf
 
         return GenerateResponse(
             mood=mood,
