@@ -21,39 +21,48 @@ import {
   Brain,
   CalendarDays,
   ChevronDown,
+  CloudRain,
+  Frown,
   Home,
   Menu,
+  Moon,
   SendHorizontal,
   Smile,
+  Sun,
+  Zap,
+  type LucideIcon,
 } from "lucide-react";
 
-const EMOTIONS = [
-  { label: "Happy", emoji: "😊" },
-  { label: "Calm", emoji: "😌" },
-  { label: "Excited", emoji: "🤩" },
-  { label: "Anxious", emoji: "😰" },
-  { label: "Tired", emoji: "😴" },
-  { label: "Sad", emoji: "😢" },
-] as const;
+const EMOTIONS: { label: string; icon: LucideIcon }[] = [
+  { label: "Happy", icon: Smile },
+  { label: "Calm", icon: Sun },
+  { label: "Excited", icon: Zap },
+  { label: "Anxious", icon: CloudRain },
+  { label: "Tired", icon: Moon },
+  { label: "Sad", icon: Frown },
+];
 
 // Placeholder past memories
 const SAMPLE_MEMORIES = [
   {
     id: 1,
     date: "Feb 28",
-    emotion: "😊",
+    emotion: "Happy",
+    icon: Smile,
     snippet: "Had a lovely walk in the park today...",
   },
   {
     id: 2,
     date: "Feb 27",
-    emotion: "😌",
+    emotion: "Calm",
+    icon: Sun,
     snippet: "Quiet morning with tea and music...",
   },
   {
     id: 3,
     date: "Feb 25",
-    emotion: "🤩",
+    emotion: "Excited",
+    icon: Zap,
     snippet: "Finally finished my painting project!",
   },
 ];
@@ -114,11 +123,7 @@ function SidebarContent() {
             >
               <span className="flex items-center gap-2">
                 <Smile className="h-4 w-4" />
-                {selectedEmotion
-                  ? EMOTIONS.find((e) => e.label === selectedEmotion)?.emoji +
-                    " " +
-                    selectedEmotion
-                  : "Filter by Emotion"}
+                {selectedEmotion ?? "Filter by Emotion"}
               </span>
               <ChevronDown className="h-4 w-4 opacity-50" />
             </Button>
@@ -134,9 +139,9 @@ function SidebarContent() {
               <DropdownMenuItem
                 key={e.label}
                 onClick={() => setSelectedEmotion(e.label)}
-                className="cursor-pointer"
+                className="cursor-pointer gap-2"
               >
-                <span className="mr-2">{e.emoji}</span>
+                <e.icon className="h-4 w-4" />
                 {e.label}
               </DropdownMenuItem>
             ))}
@@ -157,7 +162,7 @@ function SidebarContent() {
               className="w-full rounded-lg px-3 py-2.5 text-left transition-colors hover:bg-sidebar-accent cursor-pointer"
             >
               <div className="flex items-center gap-2 text-xs text-cream/50">
-                <span>{mem.emotion}</span>
+                <mem.icon className="h-3 w-3" />
                 <span>{mem.date}</span>
               </div>
               <p className="mt-0.5 text-sm text-cream/80 truncate">
@@ -175,9 +180,9 @@ export default function ChatPage() {
   const [memory, setMemory] = useState("");
   const [selectedEmotions, setSelectedEmotions] = useState<string[]>([]);
 
-  const toggleEmotion = (emoji: string) => {
+  const toggleEmotion = (label: string) => {
     setSelectedEmotions((prev) =>
-      prev.includes(emoji) ? prev.filter((e) => e !== emoji) : [...prev, emoji],
+      prev.includes(label) ? prev.filter((e) => e !== label) : [...prev, label],
     );
   };
 
@@ -246,20 +251,21 @@ export default function ChatPage() {
         <div className="border-t border-sand/40 bg-white px-4 py-3 md:px-6">
           <div className="mx-auto max-w-2xl">
             {/* Emotion quick-pick */}
-            <div className="mb-2 flex items-center gap-1">
+            <div className="mb-2 flex items-center gap-1.5">
               <span className="mr-1 text-xs text-charcoal/40">Feeling:</span>
               {EMOTIONS.map((e) => (
                 <button
                   key={e.label}
-                  onClick={() => toggleEmotion(e.emoji)}
+                  onClick={() => toggleEmotion(e.label)}
                   title={e.label}
-                  className={`rounded-full px-2 py-1 text-base transition-all cursor-pointer ${
-                    selectedEmotions.includes(e.emoji)
-                      ? "bg-olive/15 ring-2 ring-olive/40 scale-110"
-                      : "hover:bg-sand/40"
+                  className={`flex items-center gap-1 rounded-full px-2.5 py-1 text-xs font-medium transition-all cursor-pointer ${
+                    selectedEmotions.includes(e.label)
+                      ? "bg-olive/15 text-olive ring-2 ring-olive/40"
+                      : "text-charcoal/50 hover:bg-sand/40 hover:text-charcoal"
                   }`}
                 >
-                  {e.emoji}
+                  <e.icon className="h-3.5 w-3.5" />
+                  {e.label}
                 </button>
               ))}
             </div>
