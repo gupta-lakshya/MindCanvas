@@ -228,12 +228,17 @@ function SidebarContent({
 function PlaceholderComic({ text }: { text: string }) {
   return (
     <div className="mt-4 flex justify-start">
+<<<<<<< HEAD
       <div className="max-w-[55%] space-y-3">
+=======
+      <div className="max-w-[85%] space-y-3">
+>>>>>>> d72a015a87c0bc25652fa3d25c6512aed96d0cbf
         <div className="rounded-2xl rounded-bl-md bg-white border border-sand/60 p-4 shadow-sm">
           <p className="mb-3 text-xs font-semibold uppercase tracking-wider text-olive">
             Generated Comic
           </p>
           {/* 3-panel comic strip placeholder */}
+<<<<<<< HEAD
           <div >
             {/* {[1, 2, 3].map((panel) => ( */}
               <div
@@ -247,6 +252,20 @@ function PlaceholderComic({ text }: { text: string }) {
                 />
               </div>
             {/* ))} */}
+=======
+          <div className="grid grid-cols-3 gap-2">
+            {[1, 2, 3].map((panel) => (
+              <div
+                key={panel}
+                className="flex aspect-square flex-col items-center justify-center rounded-xl bg-cream border border-sand/40"
+              >
+                <ImageIcon className="h-8 w-8 text-sand" />
+                <span className="mt-1 text-[10px] text-charcoal/30">
+                  Panel {panel}
+                </span>
+              </div>
+            ))}
+>>>>>>> d72a015a87c0bc25652fa3d25c6512aed96d0cbf
           </div>
           <p className="mt-3 text-xs text-charcoal/40 italic">
             &quot;{text.length > 80 ? text.slice(0, 80) + "..." : text}&quot;
@@ -281,7 +300,11 @@ export default function ChatPage() {
     );
   };
 
+<<<<<<< HEAD
   const handleSubmit = async() => {
+=======
+  const handleSubmit = () => {
+>>>>>>> d72a015a87c0bc25652fa3d25c6512aed96d0cbf
     if (!memory.trim()) return;
     const newEntry: MemoryEntry = {
       id: Date.now().toString(),
@@ -289,6 +312,7 @@ export default function ChatPage() {
       emotions: [...selectedEmotions],
       timestamp: new Date(),
     };
+<<<<<<< HEAD
 
     try{
       await fetch("http://localhost:5000/users", {
@@ -319,6 +343,8 @@ export default function ChatPage() {
     } catch (error) {
       console.error("Failed to send memory to backend", error);
     }
+=======
+>>>>>>> d72a015a87c0bc25652fa3d25c6512aed96d0cbf
     setActiveMemory(newEntry);
     setMemories((prev) => [newEntry, ...prev]);
     setMemory("");
@@ -503,4 +529,8 @@ export default function ChatPage() {
       </main>
     </div>
   );
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> d72a015a87c0bc25652fa3d25c6512aed96d0cbf

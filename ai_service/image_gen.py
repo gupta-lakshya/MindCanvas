@@ -14,6 +14,7 @@ def generate_one_image(prompt: str, negative_prompt: str, seed: int = 0) -> str:
     Returns: base64 png string (without data URI prefix)
     """
     api_key = os.getenv("STABILITY_API_KEY")
+<<<<<<< HEAD
 
     # If the API key is not set, return a harmless placeholder image (base64)
     # to avoid 500s during local development. Log a clear message so the
@@ -23,6 +24,14 @@ def generate_one_image(prompt: str, negative_prompt: str, seed: int = 0) -> str:
         # 1x1 transparent PNG
         placeholder_base64 = "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR4nGNgYAAAAAMAASsJTYQAAAAASUVORK5CYII="
         return placeholder_base64
+=======
+    
+    if not api_key or api_key == "your_key_here":
+        raise HTTPException(
+            status_code=500, 
+            detail="STABILITY_API_KEY is missing or invalid in .env file."
+        )
+>>>>>>> d72a015a87c0bc25652fa3d25c6512aed96d0cbf
 
     headers = {
         "Authorization": f"Bearer {api_key}",
@@ -53,6 +62,7 @@ def generate_one_image(prompt: str, negative_prompt: str, seed: int = 0) -> str:
 
         if response.status_code == 200:
             response_json = response.json()
+<<<<<<< HEAD
             # Different Stability endpoints may return varied structures; try common keys.
             if isinstance(response_json, dict):
                 # prefer 'image' key if present
@@ -64,6 +74,12 @@ def generate_one_image(prompt: str, negative_prompt: str, seed: int = 0) -> str:
                     if isinstance(first, dict) and "base64" in first:
                         return first["base64"]
             raise HTTPException(status_code=500, detail="Image engine returned no image in response.")
+=======
+            if "image" in response_json:
+                return response_json["image"]
+            else:
+                raise HTTPException(status_code=500, detail="Image engine returned no image in response.")
+>>>>>>> d72a015a87c0bc25652fa3d25c6512aed96d0cbf
         else:
             # Error handling for non-200 responses
             try:
