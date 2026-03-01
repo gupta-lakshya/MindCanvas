@@ -1,0 +1,57 @@
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Distribution / packaging
+build/
+dist/
+*.egg-info/
+.eggs/
+pip-wheel-metadata/
+
+# Virtual environments
+venv/
+env/
+.venv/
+ENV/
+env.bak/
+venv.bak/
+
+# Test / typecheck caches
+.pytest_cache/
+.mypy_cache/
+.coverage
+.coverage.*
+htmlcov/
+.tox/
+
+# IDEs
+.vscode/
+.idea/
+*.sublime-*
+
+# Environment files
+.env
+.env.local
+.env.*.local
+
+# Databases and SQL dumps
+*.db
+*.sqlite3
+*.sql
+
+# Logs
+*.log
+
+# Generated images (if backend creates/holds them)
+generated_image/
+output_image.jpg
+output_*.jpg
+output_*.png
+
+# Compiled extensions
+*.so
+
+# OS files
+.DS_Store
+Thumbs.db

@@ -1,0 +1,8 @@
+fastapi
+uvicorn
+httpx
+pydantic
+python-multipart
+requests
+python-dotenv
+# Add more if needed, e.g. textblob or transformers for real mood detection
